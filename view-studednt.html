@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Students</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>View Students</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="add-student.html">Add Student</a>
+      <a href="view-students.html">View Students</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="table-section">
+      <h2>Student List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody id="studentTableBody">
+          <!-- Students will be loaded dynamically -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Student Management System</p>
+  </footer>
+
+  <script>
+    // Load students from localStorage
+    const students = JSON.parse(localStorage.getItem("students")) || [];
+
+    const tableBody = document.getElementById("studentTableBody");
+
+    // If no students found
+    if (students.length === 0) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="4" style="text-align:center; color:gray;">
+            No students found. Please add a student.
+          </td>
+        </tr>`;
+    } else {
+      // Display all students
+      tableBody.innerHTML = students.map(student => `
+        <tr>
+          <td>${student.roll}</td>
+          <td>${student.name}</td>
+          <td>${student.department}</td>
+          <td>${student.email}</td>
+        </tr>
+      `).join("");
+    }
+  </script>
+</body>
+</html>
